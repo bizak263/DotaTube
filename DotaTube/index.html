@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DotaTube</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="ice-particles"></div>
+    <div class="main-container">
+        <header>
+            <div class="logo-container">
+                <span class="site-name">DotaTube</span>
+            </div>
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <input type="text" placeholder="Поиск видео..." class="search-input">
+                    <button class="search-button">
+                        <span class="button-text">НАЙТИ</span>
+                        <div class="button-fire"></div>
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <main>
+            <div class="videos-grid">
+                <!-- Видео будут добавляться здесь динамически -->
+            </div>
+            <div class="pagination">
+                <button class="page-button active" data-page="1">I</button>
+                <button class="page-button" data-page="2">II</button>
+            </div>
+        </main>
+    </div>
+    <div class="ice-border-top"></div>
+    <div class="ice-border-right"></div>
+    <div class="ice-border-bottom"></div>
+    <div class="ice-border-left"></div>
+    <script src="videos-page1.js"></script>
+    <script src="videos-page2.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

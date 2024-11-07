@@ -1,0 +1,652 @@
+:root {
+    --dota-blue: #00a6ff;
+    --dota-dark: #0a0f1d;
+    --dota-ice: #7fdbff;
+    --dota-gray: #1e2433;
+    --dota-accent: #4169e1;
+    --dota-frost: #a5d8ff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes fireAnimation {
+    0% { transform: scale(1); opacity: 0.8; filter: brightness(1); }
+    50% { transform: scale(1.1); opacity: 1; filter: brightness(1.2); }
+    100% { transform: scale(1); opacity: 0.8; filter: brightness(1); }
+}
+
+@keyframes smokeEffect {
+    0% { opacity: 0; transform: translateY(0); }
+    50% { opacity: 0.4; }
+    100% { opacity: 0; transform: translateY(-20px); }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 31, 31, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 31, 31, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 31, 31, 0); }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--dota-dark);
+    background-image: 
+        linear-gradient(rgba(10, 15, 29, 0.95), rgba(10, 15, 29, 0.95)),
+        url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/greevils.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    font-family: 'Cinzel', serif;
+    color: #ffffff;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.fire-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.main-container {
+    max-width: 1920px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+header {
+    background: linear-gradient(to bottom, 
+        rgba(20, 20, 20, 0.95), 
+        rgba(10, 10, 10, 0.95));
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--dota-red);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 0 20px rgba(196, 30, 58, 0.3);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+}
+
+.site-name {
+    font-size: 3.5rem;
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--dota-blue), var(--dota-ice));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-shadow: 
+        0 0 10px rgba(0, 166, 255, 0.5),
+        0 0 20px rgba(0, 166, 255, 0.3);
+    animation: fireAnimation 3s infinite;
+}
+
+.search-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+}
+
+.search-input {
+    padding: 1rem 1.5rem;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--dota-gold);
+    color: white;
+    font-family: 'Cinzel', serif;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--dota-red);
+    box-shadow: 0 0 15px rgba(255, 31, 31, 0.3);
+}
+
+.search-button {
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg, var(--dota-red), var(--dota-gold));
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    min-width: 150px;
+}
+
+.search-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 31, 31, 0.4);
+}
+
+.search-button:active {
+    transform: translateY(1px);
+}
+
+.videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+}
+
+.video-card {
+    background: rgba(10, 10, 10, 0.95);
+    border: 2px solid var(--dota-red);
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 0 20px rgba(255, 31, 31, 0.1),
+        0 0 40px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.video-card:hover {
+    transform: translateY(-5px) scale(1.02);
+    border-color: var(--dota-gold);
+    box-shadow: 
+        0 0 25px rgba(255, 31, 31, 0.2),
+        0 0 50px rgba(255, 31, 31, 0.1);
+}
+
+.video-thumbnail {
+    position: relative;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, var(--dota-dark), #000);
+    overflow: hidden;
+}
+
+.thumbnail-text {
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-align: center;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+}
+
+.papich-text {
+    background: linear-gradient(45deg, #ff0000, #ff6b00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+}
+
+.pirat-text {
+    background: linear-gradient(45deg, #4169e1, #00ffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+.travoman-text {
+    background: linear-gradient(45deg, #00ff00, #98fb98);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+}
+
+.video-card:hover .video-thumbnail img {
+    transform: scale(1.05);
+}
+
+.video-thumbnail::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%);
+    pointer-events: none;
+}
+
+.video-duration {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    z-index: 1;
+    font-weight: 500;
+}
+
+.video-info {
+    padding: 1.2rem;
+}
+
+.video-info h3 {
+    margin: 0 0 0.8rem 0;
+    font-size: 1.1rem;
+    color: var(--dota-gold);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color 0.3s;
+}
+
+.video-card:hover .video-info h3 {
+    color: var(--dota-red);
+}
+
+.channel-title {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-bottom: 0.4rem;
+}
+
+.video-views {
+    color: #888;
+    font-size: 0.8rem;
+}
+
+.video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    background: var(--dota-dark);
+    padding: 30px;
+    border: 2px solid var(--dota-gold);
+    border-radius: 8px;
+    max-width: 90vw;
+    width: 900px;
+}
+
+.close-modal {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    color: var(--dota-gold);
+    font-size: 28px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.close-modal:hover {
+    color: var(--dota-red);
+    transform: scale(1.1);
+}
+
+.modal-video-info {
+    margin-top: 20px;
+    padding: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.modal-video-info h2 {
+    color: var(--dota-gold);
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+
+.modal-video-info p {
+    color: #aaa;
+    margin: 5px 0;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .search-container {
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .videos-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .modal-content {
+        width: 95vw;
+        padding: 15px;
+    }
+
+    .modal-video-info h2 {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-name {
+        font-size: 2rem;
+    }
+
+    .search-container {
+        flex-direction: column;
+    }
+
+    .search-button {
+        width: 100%;
+    }
+
+    .videos-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Эффекты огня и дыма */
+@keyframes fireGlow {
+    0% { text-shadow: 0 0 10px var(--dota-red), 0 0 20px var(--dota-red); }
+    50% { text-shadow: 0 0 15px var(--dota-red), 0 0 25px var(--dota-red); }
+    100% { text-shadow: 0 0 10px var(--dota-red), 0 0 20px var(--dota-red); }
+}
+
+.button-fire {
+    position: absolute;
+    bottom: -50%;
+    left: -10%;
+    width: 120%;
+    height: 150%;
+    background: linear-gradient(to top, var(--dota-red), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.search-button:hover .button-fire {
+    opacity: 0.3;
+}
+
+/* Добавляем эффект огня при наведении на карточки */
+.video-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, var(--dota-red), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: -1;
+}
+
+.video-card:hover::before {
+    opacity: 0.1;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.page-button {
+    padding: 1rem 2rem;
+    background: transparent;
+    border: 2px solid var(--dota-gold);
+    color: var(--dota-gold);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 4px;
+    font-size: 1.5rem;
+    font-family: 'Cinzel', serif;
+    position: relative;
+    overflow: hidden;
+    min-width: 80px;
+    text-align: center;
+}
+
+.page-button:hover,
+.page-button.active {
+    background: var(--dota-gold);
+    color: var(--dota-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.page-button.active {
+    animation: pulse 2s infinite;
+}
+
+.page-button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, var(--dota-red), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.page-button:hover::before {
+    opacity: 0.2;
+}
+
+.page-button.active::before {
+    opacity: 0.3;
+}
+
+/* Добавляем анмации для частиц льда */
+@keyframes iceParticle {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Добавляем контейнер для частиц льда */
+.ice-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.ice-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    box-shadow: 
+        0 0 10px #fff,
+        0 0 20px #00ffff,
+        0 0 30px #00ffff;
+    animation: iceParticle 3s infinite linear;
+}
+
+/* Обновляем стили для карточек с эффектом замерзания */
+.video-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.3) 0%,
+            rgba(147, 206, 255, 0.2) 50%,
+            rgba(0, 191, 255, 0.3) 100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.video-card:hover::after {
+    opacity: 1;
+    background: 
+        linear-gradient(135deg, 
+            rgba(255, 255, 255, 0.4) 0%,
+            rgba(147, 206, 255, 0.3) 50%,
+            rgba(0, 191, 255, 0.4) 100%);
+    box-shadow: 
+        inset 0 0 30px rgba(255, 255, 255, 0.6),
+        0 0 40px rgba(0, 191, 255, 0.4);
+}
+
+/* Добавляем анимации для снежинок и льда */
+@keyframes snowfall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 0;
+    }
+    20% {
+        opacity: 0.2;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@keyframes iceGlow {
+    0% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+    100% { opacity: 0.3; }
+}
+
+/* Добавляем контейнеры для эффектов */
+.ice-border-left, .ice-border-right, .ice-border-top, .ice-border-bottom {
+    position: fixed;
+    pointer-events: none;
+    z-index: 2;
+    background: linear-gradient(45deg,
+        rgba(165, 216, 255, 0.05),
+        rgba(147, 206, 255, 0.03)
+    );
+}
+
+.ice-border-left, .ice-border-right {
+    top: 0;
+    width: 50px;
+    height: 100vh;
+}
+
+.ice-border-top, .ice-border-bottom {
+    left: 0;
+    width: 100%;
+    height: 50px;
+}
+
+.ice-border-left {
+    left: 0;
+    background: linear-gradient(to right,
+        rgba(165, 216, 255, 0.1),
+        transparent
+    );
+}
+
+.ice-border-right {
+    right: 0;
+    background: linear-gradient(to left,
+        rgba(165, 216, 255, 0.1),
+        transparent
+    );
+}
+
+.ice-border-top {
+    top: 0;
+    background: linear-gradient(to bottom,
+        rgba(165, 216, 255, 0.1),
+        transparent
+    );
+}
+
+.ice-border-bottom {
+    bottom: 0;
+    background: linear-gradient(to top,
+        rgba(165, 216, 255, 0.1),
+        transparent
+    );
+}
+
+/* Добавляем снежинки */
+.snowflake {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #a5d8ff;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: snowfall linear infinite;
+    box-shadow: 
+        0 0 2px #a5d8ff,
+        0 0 4px #a5d8ff;
+    z-index: 1;
+}
